@@ -1,67 +1,85 @@
-import { useState } from "react";
 import "./App.css";
-import loginImage from "./assets/udinus.jpg"
 
-function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
-    // tambahkan logika login di sini
-  };
+function App() {
+  const courses = [
+    {
+      title: "System Administration and IT Infrastructure Services",
+    },
+    {
+      title: "Operating Systems Becoming a Power User",
+    },
+    {
+      title: "The Bits and Bytes of Computer Networking",
+    },
+    {
+      title: "Technical Support Fundamentals",
+    },
+    {
+      title: "How to Succeed at: Writing Applications",
+    },
+    {
+      title: "Medicine Administration for Carers",
+    },
+  ];
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="grid grid-cols-2 bg-white rounded-lg shadow-lg overflow-hidden w-[800px]">
-        {/* Bagian Kiri - Gambar */}
-        <div className="flex items-center justify-center bg-gray-300">
-          <img
-            src={loginImage}
-            alt="Login Illustration"
-            className="object-cover w-full h-full"
-          />
-        </div>
+    <>
+      <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        {courses.map((course, index) => (
+          <div 
+            key={index} 
+            className="shadow rounded-lg overflow-hidden flex flex-col
+            hover:border hover:border-gray-500
+            hover:shadow-lg hover:scale-105 transition-transform duration-300"
 
-        {/* Bagian Kanan - Form */}
-        <div className="flex flex-col items-center justify-center p-8">
-          <h2 className="text-2xl font-bold mb-6">Login</h2>
-          <form onSubmit={handleSubmit} className="w-full max-w-sm">
-            <div className="mb-4">
-              <label className="block text-sm font-medium mb-2">Email</label>
-              <input
-                type="email"
-                placeholder="Masukkan email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+          >
+            {/* Image */}
+            <img
+              src="https://www.placehold.co/300x200"
+              alt={course.title}
+              className="w-full h-80 object-cover"
+            />
+
+            {/* Content */}
+            <div className="p-4 bg-red-100 h-full">
+              <h3 className="text-lg font-semibold mb-4">{course.title}</h3>
+
+              <div className="bg-red-50 p-2 rounded-lg">
+                <div className="text-sm text-gray-500 mt-2 flex justify-between">
+                  <span>👥 123 users</span>
+                  <span>⏱ 60 min</span>
+                </div>
+
+                {/* Author */}
+                <div className="mt-3 mb-2 gap-2 flex items-center">
+                  <img
+                    src="https://www.placehold.co/50x50"
+                    alt="Author's Avatar"
+                    className="w-12 h-12 rounded-full object-cover"
+                  />
+                  <div>
+                    <p className="text-sm font-medium">Author's Name</p>
+                    <p className="text-xs text-gray-500">Designer</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="mt-4 flex items-center justify-between">
+                <div className="bg-white py-2 px-4 rounded">$123</div>
+                <button 
+                  className="bg-red-700 hover:bg-red-900 active:bg-red-500
+                  text-white px-4 py-2 rounded text-sm"
+                >
+                  Get Started
+                </button>
+              </div>
             </div>
-
-            <div className="mb-6">
-              <label className="block text-sm font-medium mb-2">Password</label>
-              <input
-                type="password"
-                placeholder="Masukkan password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition duration-200"
-            >
-              Login
-            </button>
-          </form>
-        </div>
+          </div>
+        ))}
       </div>
-    </div>
+    </>
   );
 }
 
-export default Login;
+export default App;
