@@ -1,7 +1,30 @@
-import React from "react";
+import React, { use } from "react";
+import { useEffect, useState } from "react";
 import UserCard from "./UserCard";
+import { getUsers } from "./Services";
 
 function Exercise() {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await getUsers();
+        setUsers(data);
+      } catch (error) {
+        console.error("[Component] Gagal menampilkan data:", error.message);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  	getUsers()
+    .then((data) => setUsers(data))
+    .catch((error) =>
+      console.error("[Component] Gagal menampilkan data:", error.message)
+    );
+
   return (
     <>
       <div className="min-h-screen bg-gray-100 p-6">
@@ -9,9 +32,9 @@ function Exercise() {
           User Cards
         </h1>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          <UserCard name="Ziven" email="ziven@gmail.com" street="Jl. Pemuda" city="Semarang" />
-          <UserCard name="Rifat" email="rifat@gmail.com" street="Jl. Imam Bonjol" city="Kediri" />
-          <UserCard name="Rahman" email="rahman@gmail.com" street="Jl. Madurejo" city="Bogor"  />
+          {users.map((user) => (
+            <UserCard key={user.email} {...user} />
+          ))}
         </div>
       </div>
     </>
