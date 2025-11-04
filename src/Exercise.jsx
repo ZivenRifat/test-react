@@ -1,44 +1,60 @@
-import React, { use } from "react";
-import { useEffect, useState } from "react";
-import UserCard from "./UserCard";
-import { getUsers } from "./Services";
+import React from "react";
+import UserPost from "./UserPost";
+import { postsData } from "./postsData";
 
 function Exercise() {
-  const [users, setUsers] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await getUsers();
-        setUsers(data);
-      } catch (error) {
-        console.error("[Component] Gagal menampilkan data:", error.message);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  	getUsers()
-    .then((data) => setUsers(data))
-    .catch((error) =>
-      console.error("[Component] Gagal menampilkan data:", error.message)
-    );
-
   return (
-    <>
-      <div className="min-h-screen bg-gray-100 p-6">
-        <h1 className="text-3xl font-bold text-center mb-6 text-blue-700">
-          User Cards
-        </h1>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {users.map((user) => (
-            <UserCard key={user.email} {...user} />
-          ))}
-        </div>
-      </div>
-    </>
+    <div className="min-h-screen bg-special-mainBg p-10">
+      <h1 className="text-3xl font-bold text-center mb-10 text-special-red2">
+        Post Cards
+      </h1>
+        <UserPost posts={postsData} />
+    </div>
   );
 }
 
 export default Exercise;
+
+
+// import React, { use } from "react";
+// import { useEffect, useState } from "react";
+// import UserCard from "./UserCard";
+// import { getUsers } from "./Services";
+
+// function Exercise() {
+//   const [users, setUsers] = useState([]);
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       try {
+//         const data = await getUsers();
+//         setUsers(data);
+//       } catch (error) {
+//         console.error("[Component] Gagal menampilkan data:", error.message);
+//       }
+//     };
+
+//     fetchData();
+//   }, []);
+
+//   	getUsers()
+//     .then((data) => setUsers(data))
+//     .catch((error) =>
+//       console.error("[Component] Gagal menampilkan data:", error.message)
+//     );
+
+//   return (
+//     <>
+//       <div className="min-h-screen bg-gray-100 p-6">
+//         <h1 className="text-3xl font-bold text-center mb-6 text-blue-700">
+//           User Cards
+//         </h1>
+//         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
+//           {users.map((user) => (
+//             <UserCard key={user.email} {...user} />
+//           ))}
+//         </div>
+//       </div>
+//     </>
+//   );
+// }
