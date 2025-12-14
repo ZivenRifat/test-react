@@ -26,7 +26,7 @@ function MainLayout(props) {
   return (
     <div className="flex min-h-screen">
       <aside className="bg-defaultBlack w-28 sm:w-64 text-special-bg2 flex flex-col justify-between px-7 py-12">
-        {/* TOP SECTION */}
+        {/* TOP */}
         <div>
           <Logo variant="secondary" />
 
@@ -50,7 +50,7 @@ function MainLayout(props) {
           </nav>
         </div>
 
-        {/* BOTTOM SECTION */}
+        {/* BOTTOM */}
         <div>
           <div className="flex bg-special-bg3 text-white px-4 py-3 rounded-md">
             <div className="mx-auto sm:mx-0">
