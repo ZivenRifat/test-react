@@ -1,13 +1,14 @@
-import OverviewSVG from "../../assets/icons/Overview.svg?react";
-import TransactionSVG from "../../assets/icons/Transaction.svg?react";
-import BalanceSVG from "../../assets/icons/wallet.svg?react";
-import BillSVG from "../../assets/icons/Bill.svg?react";
-import ExpenseSVG from "../../assets/icons/Expencces.svg?react";
-import GoalSVG from "../../assets/icons/Goal.svg?react";
-import SettingSVG from "../../assets/icons/Settings.svg?react";
-import DetailSVG from "../../assets/icons/Icon.svg?react";
-import ChevronRightSVG from "../../assets/icons/chevrons-right.svg?react";
-import LogoutSVG from "../../assets/icons/Icon2.svg?react";
+import OverviewSVG from "@/assets/icons/Overview.svg?react";
+import TransactionSVG from "@/assets/icons/Transaction.svg?react";
+import BalanceSVG from "@/assets/icons/wallet.svg?react";
+import BillSVG from "@/assets/icons/Bill.svg?react";
+import ExpenseSVG from "@/assets/icons/Expense.svg?react";
+import GoalSVG from "@/assets/icons/Goal.svg?react";
+import SettingSVG from "@/assets/icons/Settings.svg?react";
+import DetailSVG from "@/assets/icons/Icon.svg?react";
+import ChevronRightSVG from "@/assets/icons/chevrons-right.svg?react";
+import LogoutSVG from "@/assets/icons/Icon2.svg?react";
+
 
 const Icon = {
   Overview: ({ size = 24, color = "currentColor", ...props }) => (
