@@ -1,30 +1,61 @@
-import { Link } from "react-router-dom";
 import "./App.css";
-import ErrorPage from "./pages/ErrorPage.jsx";
-import SignInPage from "./pages/SignInPage.jsx";
-import SignUpPage from "./pages/SignUpPage.jsx";
-import Dashboard from "./pages/Dashboard.jsx";
-import BalancePage from "./pages/Balance.jsx";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import SignInPage from "./pages/SignInPage";
+import SignUpPage from "./pages/SignUpPage";
+import ErrorPage from "./pages/ErrorPage";
+import DashboardPage from "./pages/dashboard";
+import BalancePage from "./pages/balance";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "./context/authContext";
 
 function App() {
+  const { user } = useContext(AuthContext);
+
+  const RequireAuth = ({ children }) => {
+    return user ? children : <Navigate to="/login" />;
+  };
+
+  const NotRequireAuth = ({ children }) => {
+    return user ? <Navigate to="/" /> : children;
+  };
+
   const myRouter = createBrowserRouter([
     {
       path: "/",
-      element: <Dashboard />,
+      element: (
+        <RequireAuth>
+          <DashboardPage />
+        </RequireAuth>
+      ),
       errorElement: <ErrorPage />,
     },
     {
       path: "/login",
-      element: <SignInPage />,
+      element: (
+        <NotRequireAuth>
+          <SignInPage />
+        </NotRequireAuth>
+      ),
     },
     {
       path: "/register",
-      element: <SignUpPage />,
+      element: (
+        <NotRequireAuth>
+          <SignUpPage />
+        </NotRequireAuth>
+      ),
     },
     {
       path: "/balance",
-      element: <BalancePage />,
+      element: (
+        <RequireAuth>
+          <BalancePage />
+        </RequireAuth>
+      ),
     },
   ]);
 

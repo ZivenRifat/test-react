@@ -1,13 +1,26 @@
-import React from 'react'
-import AuthLayouts from '../components/Layouts/AuthLayouts'
-import FormSignIn from '../components/Fragments/FormSignIn'
+import React from "react";
+import AuthLayout from "../components/Layouts/AuthLayouts";
+import FormSignIn from "../components/Fragments/FormSignIn";
+import { loginService } from "../services/authService";
+import { AuthContext } from "../context/authContext";
 
 function SignInPage() {
-  return (
-    <AuthLayouts>
-        <FormSignIn />
-    </AuthLayouts>
-  )
-}
+  const { login } = React.useContext(AuthContext);
 
+  const handleLogin = async (email, password) => {
+    try {
+      const { refreshToken } = await loginService(email, password);
+
+      login(refreshToken);
+    } catch (err) {
+      console.error(err.msg);
+    }
+  };
+
+  return (
+    <AuthLayout>
+      <FormSignIn onSubmit={handleLogin} />
+    </AuthLayout>
+  );
+}
 export default SignInPage;
