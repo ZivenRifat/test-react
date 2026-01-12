@@ -2,7 +2,7 @@ import "./App.css";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import ErrorPage from "./pages/ErrorPage";
-import DashboardPage from "./pages/dashboard";
+import DashboardPage from "./pages/Dashboard";
 import BalancePage from "./pages/balance";
 import {
   createBrowserRouter,
