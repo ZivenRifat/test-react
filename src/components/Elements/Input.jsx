@@ -3,23 +3,29 @@ import React from "react";
 function Input(props) {
   const {
     id,
-    icon = false,
-    backgroundColor = false,
+    backgroundColor = "bg-white",
     border = "border-gray-03",
     ...rest
   } = props;
 
   return (
-    <>
-      <input
-        className={`py-3 pl-4 text-sm rounded-md w-full border text-gray-01 
-          ${border} focus:border-black focus:outline-none focus:ring-0 
-          ${backgroundColor || ""}
-        `}
-        id={id}
-        {...rest}
-      />
-    </>
+    <input
+      id={id}
+      {...rest}
+      className={`
+        w-full
+        py-3
+        pl-4
+        text-sm
+        rounded-md
+        border
+        ${border}
+        ${backgroundColor}
+        text-gray-01
+        focus:outline-none
+        focus:border-black
+      `}
+    />
   );
 }
 

@@ -8,8 +8,15 @@ import { ThemeContext } from "../../context/themeContext";
 import { AuthContext } from "../../context/authContext";
 import { logoutService } from "../../services/authService";
 
+// MUI
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+
 function MainLayout(props) {
     const { children } = props;
+
+    // state loading logout
+    const [loadingLogout, setLoadingLogout] = useState(false);
 
     const themes = [
         { name: "theme-green", bgcolor: "bg-[#299D91]", color: "#299D91" },
@@ -24,7 +31,7 @@ function MainLayout(props) {
     const menu = [
         { id: 1, name: "Overview", icon: <Icon.Overview />, link: "/" },
         { id: 2, name: "Balances", icon: <Icon.Balance />, link: "/balance" },
-        { id: 3, name: "Transaction", icon: <Icon.Transaction />, link: "/transaction", },
+        { id: 3, name: "Transaction", icon: <Icon.Transaction />, link: "/transaction" },
         { id: 4, name: "Bills", icon: <Icon.Bill />, link: "/bill" },
         { id: 5, name: "Expenses", icon: <Icon.Expense />, link: "/expense" },
         { id: 6, name: "Goals", icon: <Icon.Goal />, link: "/goal" },
@@ -32,8 +39,11 @@ function MainLayout(props) {
     ];
 
     const { user, logout } = useContext(AuthContext);
+
+    // UPDATED LOGOUT HANDLER
     const handleLogout = async () => {
         try {
+            setLoadingLogout(true); 
             await logoutService();
             logout();
         } catch (err) {
@@ -41,6 +51,8 @@ function MainLayout(props) {
             if (err.status === 401) {
                 logout();
             }
+        } finally {
+            setLoadingLogout(false); 
         }
     };
 
@@ -59,9 +71,10 @@ function MainLayout(props) {
                                 key={item.id}
                                 to={item.link}
                                 className={({ isActive }) =>
-                                    `flex px-4 py-3 rounded-md hover:text-white hover:font-bold hover:scale-105 ${isActive
-                                        ? "bg-primary text-white font-bold"
-                                        : "hover:bg-special-bg3"
+                                    `flex px-4 py-3 rounded-md hover:text-white hover:font-bold hover:scale-105 ${
+                                        isActive
+                                            ? "bg-primary text-white font-bold"
+                                            : "hover:bg-special-bg3"
                                     }`
                                 }
                             >
@@ -71,6 +84,7 @@ function MainLayout(props) {
                         ))}
                     </nav>
                 </div>
+
                 <div>
                     Themes
                     <div className="flex flex-col sm:flex-row gap-2 items-center">
@@ -79,7 +93,7 @@ function MainLayout(props) {
                                 key={t.name}
                                 className={`${t.bgcolor} w-6 h-6 rounded-md cursor-pointer mb-2`}
                                 onClick={() => setTheme(t)}
-                            ></div>
+                            />
                         ))}
                     </div>
                 </div>
@@ -109,10 +123,10 @@ function MainLayout(props) {
                         </div>
                     </div>
                 </div>
-            </aside >
+            </aside>
 
             {/* Content */}
-            < div className="bg-special-mainBg flex-1 flex flex-col" >
+            <div className="bg-special-mainBg flex-1 flex flex-col h-screen overflow-hidden">
                 <div className="border-b border-gray-05 px-6 py-7 flex justify-between items-center">
                     <div className="flex items-center">
                         <div className="font-bold text-2xl me-6">{user.name}</div>
@@ -126,19 +140,26 @@ function MainLayout(props) {
                         <div className="me-10">
                             <NotificationsIcon className="text-primary scale-110" />
                         </div>
-                        <Input
-                            backgroundColor="bg-white"
-                            border="border-white"
-                        />
+                        <Input backgroundColor="bg-white" border="border-white" />
                     </div>
                 </div>
 
-                {/* Page Content */}
-                <main className="flex-1 px-6 py-4">
+                <main className="flex-1 px-6 py-4 overflow-y-auto">
                     {children}
                 </main>
-            </div >
-        </div >
+            </div>
+
+            {/* BACKDROP LOGOUT */}
+            <Backdrop
+                sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={loadingLogout}
+            >
+                <div className="flex flex-col items-center gap-3">
+                    <CircularProgress color="inherit" />
+                    <span className="text-sm">Logging Out</span>
+                </div>
+            </Backdrop>
+        </div>
     );
 }
 

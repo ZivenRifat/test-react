@@ -4,6 +4,7 @@ import SignUpPage from "./pages/SignUpPage";
 import ErrorPage from "./pages/ErrorPage";
 import DashboardPage from "./pages/Dashboard";
 import BalancePage from "./pages/Balance";
+import ExpensesPage from "./pages/Expenses";
 import {
   createBrowserRouter,
   Navigate,
@@ -54,6 +55,14 @@ function App() {
       element: (
         <RequireAuth>
           <BalancePage />
+        </RequireAuth>
+      ),
+    },
+    {
+      path: "/expense",
+      element: (
+        <RequireAuth>
+          <ExpensesPage />
         </RequireAuth>
       ),
     },
